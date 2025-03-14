@@ -1,0 +1,23 @@
+﻿<Window x:Class="AVS.Wpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AVS.Wpf"
+        xmlns:views="clr-namespace:AVS.Wpf.Windows"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid x:Name="TypeView">
+        <!--<views:WindowsLogin/>-->
+        <Grid>
+            <TabControl>
+                <TabItem Header="Types de Consultation">
+                    <views:WindowsType/>
+                </TabItem>
+                <!-- <TabItem Header="Utilisateurs">
+                    <views:WindowsUser/>
+                </TabItem>-->
+            </TabControl>
+        </Grid>
+    </Grid>
+</Window>

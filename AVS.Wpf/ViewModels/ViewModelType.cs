@@ -17,13 +17,18 @@ namespace AVS.Wpf.ViewModels
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public ViewModelType()
+        private readonly ITypeProvider _TypeProvider;
+
+        public ViewModelType(ITypeProvider TypeProvider)
         {
-            ResetNewType();
-            using (AvsContext mg = new AvsContext())
-            {
-                Types = new ObservableCollection<DBLib.Class.Type>(mg.Types.ToList());
-            }
+            //ResetNewType();
+            //using (AvsContext mg = new AvsContext())
+            //{
+            //    Types = new ObservableCollection<DBLib.Class.Type>(mg.Types.ToList());
+            //}
+
+            _TypeProvider = TypeProvider;
+
         }
 
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)

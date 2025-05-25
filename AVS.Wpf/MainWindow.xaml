@@ -8,15 +8,29 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid x:Name="TypeView">
-        <!--<views:WindowsLogin/>-->
         <Grid>
-            <TabControl>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <DockPanel Grid.Row="0" LastChildFill="False">
+                <Button Content="Logout"
+                        DockPanel.Dock="Right"
+                        Margin="0,5,10,5"
+                        Padding="15,5"
+                        HorizontalAlignment="Right"
+                        Click="Button_Logout_Click"/>
+            </DockPanel>
+            <TabControl Grid.Row="1">
+                <TabItem Header="Medicaments">
+                    <views:WindowsMedicament/>
+                </TabItem>
                 <TabItem Header="Types de Consultation">
                     <views:WindowsType/>
                 </TabItem>
-                <!-- <TabItem Header="Utilisateurs">
+                <TabItem Header="Utilisateurs">
                     <views:WindowsUser/>
-                </TabItem>-->
+                </TabItem>
             </TabControl>
         </Grid>
     </Grid>

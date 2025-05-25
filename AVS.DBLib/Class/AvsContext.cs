@@ -272,7 +272,7 @@ public partial class AvsContext : DbContext
                 .HasMaxLength(255)
                 .HasColumnName("nom");
             entity.Property(e => e.Peremption)
-                .HasColumnType("date")
+                .HasColumnType("int")
                 .HasColumnName("peremption");
             entity.Property(e => e.UpdatedAt)
                 .HasColumnType("timestamp")

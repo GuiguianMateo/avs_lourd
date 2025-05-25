@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using AVS.DBLib.Class;
+using System.Windows;
 
 namespace AVS.Wpf
 {
@@ -10,6 +11,11 @@ namespace AVS.Wpf
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Button_Logout_Click(object sender, RoutedEventArgs e)
+        {
+            ((App)System.Windows.Application.Current).Logout();
         }
     }
 }

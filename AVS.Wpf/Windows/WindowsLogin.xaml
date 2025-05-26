@@ -4,51 +4,108 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AVS.Wpf.Windows"
-        xmlns:views="clr-namespace:AVS.Wpf.Windows"
-        xmlns:converters="clr-namespace:AVS.Wpf.Converters"
         mc:Ignorable="d"
-        Title="Connexion" Height="450" Width="800" WindowStartupLocation="CenterScreen">
-    <Grid>
-        <Grid ShowGridLines="false">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="250"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="75"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="25"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="25"/>
-                <RowDefinition Height="25"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
+        Title="Connexion" 
+        Height="600" 
+        Width="900" 
+        WindowStartupLocation="CenterScreen"
+        Style="{StaticResource ModernWindowStyle}">
 
-            <Label x:Name="LabelLoginEmail" Content="Adresse mail:" Grid.Column="1" Grid.Row="2" TextBlock.TextAlignment="Center" TextBlock.FontSize="14"/>
-            <TextBox x:Name="TextBoxLogin" BorderBrush="Black" FontSize="18" Grid.Column="1" Grid.Row="3" Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"/>
+    <Window.Resources>
+        <!-- Import du dictionnaire principal -->
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/MainStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
 
-            <Label x:Name="LabelLoginPassword" Content="Mot de Passe :" Grid.Column="1" Grid.Row="5" TextBlock.TextAlignment="Center" TextBlock.FontSize="14"/>
-            <PasswordBox x:Name="PasswordBoxLogin" BorderBrush="Black" TextBlock.FontSize="18" Grid.Column="1" Grid.Row="6"></PasswordBox>
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Window.Loaded">
+            <BeginStoryboard Storyboard="{StaticResource CardAppearAnimation}"/>
+        </EventTrigger>
+    </Window.Triggers>
 
-            <Label x:Name="LabelLogin" Content="Page de Connexion :" Grid.Column="1" Grid.Row="1" TextBlock.TextAlignment="Center" TextBlock.FontSize="24"/>
+    <Grid Background="{StaticResource SurfaceBrush}">
+        <!-- Bouton de fermeture -->
+        <Button x:Name="CloseButton" 
+                Style="{StaticResource CloseButtonStyle}"
+                Content="✕"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Margin="20"
+                Panel.ZIndex="10"
+                Click="CloseButton_Click"/>
 
-        </Grid>
-        <Grid ShowGridLines="false">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="175"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="75"/>
-            </Grid.RowDefinitions>
+        <!-- Conteneur principal centré -->
+        <Border x:Name="LoginCard"
+                Style="{StaticResource LoginCardStyle}"
+                Width="420"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
 
-            <Button x:Name="ButtonLogin" Click="Button_Login_Click" Content="Connexion" Style="{StaticResource StyleCreate}" TextBlock.FontSize="18" Grid.Column="1" Grid.Row="1"></Button>
-        </Grid>
+            <StackPanel>
+                <!-- En-tête avec titre -->
+                <StackPanel Margin="0,0,0,30">
+                    <!-- Icône de bienvenue -->
+                    <Ellipse Width="80" Height="80" 
+                             Margin="0,0,0,20"
+                             HorizontalAlignment="Center">
+                        <Ellipse.Fill>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="#4F46E5" Offset="0"/>
+                                <GradientStop Color="#06B6D4" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Ellipse.Fill>
+                    </Ellipse>
+
+                    <TextBlock Text="Bon retour !" 
+                               Style="{StaticResource TitleStyle}"/>
+                    <TextBlock Text="Connectez-vous à votre compte" 
+                               Style="{StaticResource SubtitleStyle}"/>
+                </StackPanel>
+
+                <!-- Formulaire de connexion -->
+                <StackPanel>
+                    <!-- Champ Email -->
+                    <StackPanel Style="{StaticResource FormContainerStyle}">
+                        <TextBlock Text="Adresse e-mail" 
+                                   Style="{StaticResource FieldLabelStyle}"/>
+                        <TextBox x:Name="TextBoxLogin" 
+                                 Style="{StaticResource ModernTextBoxStyle}"
+                                 TabIndex="1"/>
+                    </StackPanel>
+
+                    <!-- Champ Mot de passe -->
+                    <StackPanel Style="{StaticResource FormContainerStyle}">
+                        <TextBlock Text="Mot de passe" 
+                                   Style="{StaticResource FieldLabelStyle}"/>
+                        <PasswordBox x:Name="PasswordBoxLogin" 
+                                     Style="{StaticResource ModernPasswordBoxStyle}"
+                                     TabIndex="2"/>
+                    </StackPanel>
+
+                    <!-- Zone d'erreur -->
+                    <TextBlock x:Name="ErrorMessage"/>
+                    <!--Style="{StaticResource ErrorMessageStyle}"
+                               Visibility="Collapsed"
+                               Margin="0,0,0,20"/>-->
+
+                    <!-- Bouton de connexion -->
+                    <Button x:Name="ButtonLogin" 
+                            Click="Button_Login_Click"
+                            Content="Se connecter" 
+                            Style="{StaticResource ModernButtonStyle}"
+                            TabIndex="3"
+                            Margin="0,0,0,20"/>
+
+                    <!-- Loading spinner (caché par défaut) -->
+                    <Border x:Name="LoadingSpinner"
+                            Style="{StaticResource LoadingSpinnerStyle}"
+                            HorizontalAlignment="Center"
+                            Visibility="Collapsed"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
     </Grid>
 </Window>
-

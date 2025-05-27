@@ -257,4 +257,41 @@
         <Setter Property="VerticalAlignment" Value="Center"/>
     </Style>
 
+    <!-- Tableau de donnée global -->
+    <Style x:Key="GlobalDataGridStyle" TargetType="DataGrid">
+        <Setter Property="Background" Value="{StaticResource SurfaceBrush}" />
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="RowBackground" Value="White" />
+        <Setter Property="AlternatingRowBackground" Value="#F3F4F6" />
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="HorizontalGridLinesBrush" Value="Transparent"/>
+        <Setter Property="VerticalGridLinesBrush" Value="Transparent"/>
+        <Setter Property="SelectionMode" Value="Single" />
+        <Setter Property="SelectionUnit" Value="FullRow" />
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="RowHeight" Value="28"/>
+        <Setter Property="MinHeight" Value="100"/>
+        <Setter Property="MaxWidth" Value="800"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="10"/>
+    </Style>
+
+
+
+    <!-- Tableau de donnée medium -->
+    <Style x:Key="MediumDataGridStyle" TargetType="DataGrid" BasedOn="{StaticResource GlobalDataGridStyle}">
+        <Setter Property="MinHeight" Value="300"/>
+        <Setter Property="MaxHeight" Value="500"/>
+    </Style>
+
+
+    <!-- Tableau de donnée large -->
+    <Style x:Key="LargeDataGridStyle" TargetType="DataGrid" BasedOn="{StaticResource GlobalDataGridStyle}">
+        <Setter Property="MaxHeight" Value="700"/>
+        <Setter Property="Margin" Value="10,10,10,20"/>
+    </Style>
+
+
 </ResourceDictionary>

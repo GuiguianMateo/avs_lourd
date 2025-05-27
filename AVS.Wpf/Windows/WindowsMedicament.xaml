@@ -1,67 +1,85 @@
 ﻿<UserControl x:Class="AVS.Wpf.Windows.WindowsMedicament"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:AVS.Wpf.Windows"
-        xmlns:views="clr-namespace:AVS.Wpf.Windows"
-        xmlns:converters="clr-namespace:AVS.Wpf.Converters"
-         mc:Ignorable="d">
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:AVS.Wpf.Windows"
+             xmlns:converters="clr-namespace:AVS.Wpf.Converters"
+             mc:Ignorable="d">
+
     <UserControl.Resources>
-        <converters:ObjectToVisibilityConverter x:Key="ObjectToVisibilityConverter"/> 
-
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/MainStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <converters:ObjectToVisibilityConverter x:Key="ObjectToVisibilityConverter"/>
+        </ResourceDictionary>
     </UserControl.Resources>
-    <Grid>
-        <Grid ShowGridLines="false">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="100"></RowDefinition>
-                <RowDefinition Height="40"></RowDefinition>
-                <RowDefinition Height="50"></RowDefinition>
-                <RowDefinition Height="40"></RowDefinition>
-                <RowDefinition Height="10"></RowDefinition>
-                <RowDefinition Height="40"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="125"></ColumnDefinition>
-                <ColumnDefinition Width="150"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Button x:Name="ButtonCreate" Style="{StaticResource StyleCreate}" Content="Créer" Click="Create_Medicament_Click" Grid.Row="1" Grid.Column="1" FontSize="14"></Button>
-            <Button x:Name="ButtonEdit" Style="{StaticResource StyleEdit}" Content="Modifier" Click="Edit_Medicament_Click" Grid.Row="3" Grid.Column="1" FontSize="14"
-                   Visibility="{Binding SelectedMedicament, Converter={StaticResource ObjectToVisibilityConverter}}"></Button>
-            <Button x:Name="ButtonDelete" Style="{StaticResource StyleDelete}" Content="Supprimer" Click="Delete_Medicament_Click" Grid.Row="5" Grid.Column="1" FontSize="14"
-                   Visibility="{Binding SelectedMedicament, Converter={StaticResource ObjectToVisibilityConverter}}"></Button>
-        </Grid>
-        <Grid ShowGridLines="false">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="50"></RowDefinition>
-                <RowDefinition Height="50"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="50"></RowDefinition>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100"></ColumnDefinition>
-                <ColumnDefinition Width="auto"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Label Content="Medicaments Consultation :" Grid.Column="1" Grid.Row="1" FontSize="24" HorizontalAlignment="Center"></Label>
-            <DataGrid
-                                    x:Name="Medicament"
-                                    Grid.Column="1"
-                                    Grid.Row="2" 
-                                    ItemsSource="{Binding Medicaments}"
-					                        DisplayMemberPath="Libelle"
-					                        SelectedItem="{Binding SelectedMedicament}"
-                                            AutoGenerateColumns="False"
-                                            IsReadOnly="True">
 
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Medicament de Consultation" Binding="{Binding Nom}"/>
-                    <DataGridTextColumn Header="Durée Péremption" Binding="{Binding PeremptionUnit}"/>
-                </DataGrid.Columns>
-            </DataGrid>
+    <Grid Margin="30">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Title -->
+            <RowDefinition Height="Auto"/>
+            <!-- Buttons -->
+            <RowDefinition Height="*"/>
+            <!-- DataGrid -->
+        </Grid.RowDefinitions>
+
+        <!-- Title -->
+        <TextBlock Text="Médicaments :"
+                   Style="{StaticResource TitleStyle}"
+                   HorizontalAlignment="Center"
+                   Margin="0,0,0,20"/>
+
+        <!-- Action buttons -->
+        <Grid Grid.Row="1" Margin="0,20,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Create button aligned left -->
+            <Button x:Name="ButtonCreate"
+            Style="{StaticResource CompactCreateButtonStyle}"
+            Content="Créer"
+            Click="Create_Medicament_Click"
+            HorizontalAlignment="Left"
+            Margin="10,0,0,0"
+            Grid.Column="0"/>
+
+            <!-- Edit and Delete buttons aligned right -->
+            <StackPanel Orientation="Horizontal"
+                HorizontalAlignment="Right"
+                Grid.Column="1">
+                <Button x:Name="ButtonEdit"
+                Style="{StaticResource CompactEditButtonStyle}"
+                Content="Modifier"
+                Click="Edit_Medicament_Click"
+                Margin="0,0,10,0"
+                Visibility="{Binding SelectedMedicament, Converter={StaticResource ObjectToVisibilityConverter}}"/>
+
+                <Button x:Name="ButtonDelete"
+                Style="{StaticResource CompactDeleteButtonStyle}"
+                Content="Supprimer"
+                Click="Delete_Medicament_Click"
+                Margin="0,0,10,0"
+                Visibility="{Binding SelectedMedicament, Converter={StaticResource ObjectToVisibilityConverter}}"/>
+            </StackPanel>
         </Grid>
+        <!-- DataGrid -->
+        <DataGrid x:Name="Medicament"
+                  Grid.Row="2"
+                  ItemsSource="{Binding Medicaments}"
+                  SelectedItem="{Binding SelectedMedicament}"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  Style="{StaticResource MediumDataGridStyle}">
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Médicament" Binding="{Binding Nom}"/>
+                <DataGridTextColumn Header="Durée Péremption" Binding="{Binding PeremptionUnit}"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>
-

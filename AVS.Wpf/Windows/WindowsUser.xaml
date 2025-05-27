@@ -4,65 +4,70 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AVS.Wpf.Windows"
-        xmlns:views="clr-namespace:AVS.Wpf.Windows"
         xmlns:converters="clr-namespace:AVS.Wpf.Converters"
-         mc:Ignorable="d">
+        mc:Ignorable="d">
+
     <UserControl.Resources>
-        <converters:ObjectToVisibilityConverter x:Key="ObjectToVisibilityConverter"/> 
-
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/MainStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <converters:ObjectToVisibilityConverter x:Key="ObjectToVisibilityConverter"/>
+        </ResourceDictionary>
     </UserControl.Resources>
-    <Grid>
-        <Grid ShowGridLines="false">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="40"></RowDefinition>
-                <RowDefinition Height="40"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="125"></ColumnDefinition>
-                <ColumnDefinition Width="50"></ColumnDefinition>
-                <ColumnDefinition Width="150"></ColumnDefinition>
-                <ColumnDefinition Width="100"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Button x:Name="ButtonEdit" Style="{StaticResource StyleEdit}" Content="Modifier" Click="Edit_User_Click" Grid.Row="1" Grid.Column="1" FontSize="14"
-                   Visibility="{Binding SelectedUser, Converter={StaticResource ObjectToVisibilityConverter}}"></Button>
-            <Button x:Name="ButtonDelete" Style="{StaticResource StyleDelete}" Content="Supprimer" Click="Delete_User_Click" Grid.Row="1" Grid.Column="3" FontSize="14"
-                   Visibility="{Binding SelectedUser, Converter={StaticResource ObjectToVisibilityConverter}}"></Button>
-        </Grid>
-        <Grid ShowGridLines="false">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="40"></RowDefinition>
-                <RowDefinition Height="60"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="50"></RowDefinition>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="auto"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Label Content="Utilisateurs :" Grid.Column="1" Grid.Row="1" FontSize="24" HorizontalAlignment="Left"></Label>
-            <DataGrid
-                                    x:Name="user"
-                                    Grid.Column="1"
-                                    Grid.Row="2" 
-                                    ItemsSource="{Binding Users}"
-					                        DisplayMemberPath="Libelle"
-					                        SelectedItem="{Binding SelectedUser}"
-                                            AutoGenerateColumns="False"
-                                            IsReadOnly="True">
 
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Nom user" Binding="{Binding Nom}"/>
-                    <DataGridTextColumn Header="Prenom user" Binding="{Binding Prenom}"/>
-                    <DataGridTextColumn Header="Email" Binding="{Binding Email}"/>
-                    <DataGridTextColumn Header="Date Naissance" Binding="{Binding Naissance}"/>
-                    <DataGridTextColumn Header="Genre" Binding="{Binding Genre}"/>
-                    <DataGridTextColumn Header="Création du compte" Binding="{Binding CreatedAt}"/>
-                </DataGrid.Columns>
-            </DataGrid>
-        </Grid>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Title -->
+            <RowDefinition Height="Auto"/>
+            <!-- Actions -->
+            <RowDefinition Height="*"/>
+            <!-- DataGrid -->
+        </Grid.RowDefinitions>
+
+        <!-- Title -->
+        <TextBlock Text="Utilisateurs :"
+                   Grid.Row="0"
+                   Style="{StaticResource TitleStyle}"
+                   HorizontalAlignment="Center"
+                   Margin="0 0 0 10"/>
+
+        <!-- Action buttons -->
+        <DockPanel Grid.Row="1" Margin="0 0 0 10">
+            <!-- Edit + Delete à droite -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" DockPanel.Dock="Right">
+                <Button x:Name="ButtonEdit"
+                        Style="{StaticResource CompactEditButtonStyle}"
+                        Content="Modifier"
+                        Click="Edit_User_Click"
+                        Margin="0,0,10,0"
+                        Visibility="{Binding SelectedUser, Converter={StaticResource ObjectToVisibilityConverter}}"/>
+                <Button x:Name="ButtonDelete"
+                        Style="{StaticResource CompactDeleteButtonStyle}"
+                        Content="Supprimer"
+                        Click="Delete_User_Click"
+                        Visibility="{Binding SelectedUser, Converter={StaticResource ObjectToVisibilityConverter}}"/>
+            </StackPanel>
+        </DockPanel>
+        
+        <!-- DataGrid -->
+        <DataGrid x:Name="user"
+                  Grid.Row="2"
+                  ItemsSource="{Binding Users}"
+                  SelectedItem="{Binding SelectedUser}"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  Style="{StaticResource LargeDataGridStyle}">
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Nom" Binding="{Binding Nom}"/>
+                <DataGridTextColumn Header="Prénom" Binding="{Binding Prenom}"/>
+                <DataGridTextColumn Header="Email" Binding="{Binding Email}"/>
+                <DataGridTextColumn Header="Naissance" Binding="{Binding Naissance}"/>
+                <DataGridTextColumn Header="Genre" Binding="{Binding Genre}"/>
+                <DataGridTextColumn Header="Création" Binding="{Binding CreatedAt}"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>
-

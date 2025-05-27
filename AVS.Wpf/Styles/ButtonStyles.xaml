@@ -12,8 +12,8 @@
         <Setter Property="IsTabStop" Value="True"/>
     </Style>
 
-    <!-- Bouton principal moderne -->
-    <Style x:Key="ModernButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}">
+    <!-- Bouton Login moderne -->
+    <Style x:Key="ModernLoginButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}">
         <Setter Property="Background" Value="{StaticResource PrimaryGradientBrush}"/>
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="BorderThickness" Value="0"/>
@@ -152,7 +152,6 @@
 
     <!-- Bouton compact -->
     <Style x:Key="CompactButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}">
-        <Setter Property="Background" Value="{StaticResource AccentBrush}"/>
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Height" Value="36"/>
@@ -169,6 +168,22 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
+
+
+    <!-- Bouton compact Create -->
+    <Style x:Key="CompactCreateButtonStyle" TargetType="Button" BasedOn="{StaticResource CompactButtonStyle}">
+        <Setter Property="Background" Value="{StaticResource AccentBrush}"/>
+    </Style>
+
+    <!-- Bouton compact Edit -->
+    <Style x:Key="CompactEditButtonStyle" TargetType="Button" BasedOn="{StaticResource CompactButtonStyle}">
+        <Setter Property="Background" Value="{StaticResource WarningBrush}"/>
+    </Style>
+
+    <!-- Bouton compact Delete -->
+    <Style x:Key="CompactDeleteButtonStyle" TargetType="Button" BasedOn="{StaticResource CompactButtonStyle}">
+        <Setter Property="Background" Value="{StaticResource DangerBrush}"/>
     </Style>
 
 </ResourceDictionary>

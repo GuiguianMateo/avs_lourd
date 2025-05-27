@@ -8,11 +8,9 @@
         Title="Connexion" 
         Height="600" 
         Width="900" 
-        WindowStartupLocation="CenterScreen"
-        Style="{StaticResource ModernWindowStyle}">
+        WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
-        <!-- Import du dictionnaire principal -->
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Styles/MainStyles.xaml"/>
@@ -68,34 +66,33 @@
                 <!-- Formulaire de connexion -->
                 <StackPanel>
                     <!-- Champ Email -->
-                    <StackPanel Style="{StaticResource FormContainerStyle}">
+                    <StackPanel Style="{StaticResource FieldContainerStyle}">
                         <TextBlock Text="Adresse e-mail" 
                                    Style="{StaticResource FieldLabelStyle}"/>
                         <TextBox x:Name="TextBoxLogin" 
-                                 Style="{StaticResource ModernTextBoxStyle}"
+                                 Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"
                                  TabIndex="1"/>
                     </StackPanel>
 
                     <!-- Champ Mot de passe -->
-                    <StackPanel Style="{StaticResource FormContainerStyle}">
+                    <StackPanel Style="{StaticResource FieldContainerStyle}">
                         <TextBlock Text="Mot de passe" 
                                    Style="{StaticResource FieldLabelStyle}"/>
                         <PasswordBox x:Name="PasswordBoxLogin" 
-                                     Style="{StaticResource ModernPasswordBoxStyle}"
                                      TabIndex="2"/>
                     </StackPanel>
 
                     <!-- Zone d'erreur -->
-                    <TextBlock x:Name="ErrorMessage"/>
-                    <!--Style="{StaticResource ErrorMessageStyle}"
+                    <TextBlock x:Name="ErrorMessage"
+                     Style="{StaticResource ErrorMessageStyle}"
                                Visibility="Collapsed"
-                               Margin="0,0,0,20"/>-->
+                               Margin="0,0,0,20"/>
 
                     <!-- Bouton de connexion -->
                     <Button x:Name="ButtonLogin" 
                             Click="Button_Login_Click"
                             Content="Se connecter" 
-                            Style="{StaticResource ModernButtonStyle}"
+                            Style="{StaticResource ModernLoginButtonStyle}"
                             TabIndex="3"
                             Margin="0,0,0,20"/>
 

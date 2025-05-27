@@ -14,12 +14,6 @@
                                   Color="Black"/>
             </Setter.Value>
         </Setter>
-        <Setter Property="RenderTransform">
-            <Setter.Value>
-                <TranslateTransform Y="20"/>
-            </Setter.Value>
-        </Setter>
-        <Setter Property="Opacity" Value="0"/>
     </Style>
 
     <!-- Titre principal -->

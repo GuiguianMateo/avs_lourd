@@ -10,11 +10,11 @@
                 <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />-->
                 <!-- Theme setting -->
-                <ResourceDictionary Source="Styles/MainStyles.xaml"/>
+                <ResourceDictionary Source="/Styles/MainStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <!--<converters:GenderToBoolConverter x:Key="GenderToBoolConverter"/> -->
             <converters:ObjectToVisibilityConverter x:Key="SharedObjectToVisibilityConverter"/>
-            
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

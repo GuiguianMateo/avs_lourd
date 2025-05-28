@@ -41,7 +41,7 @@
             <!-- Create button aligned left -->
             <Button x:Name="ButtonCreate"
                 Style="{StaticResource CompactCreateButtonStyle}"
-                Content="Créer"
+                Content="Ajouter"
                 Click="Create_Type_Click"
                 HorizontalAlignment="Left"
                 Margin="10,0,0,0"
@@ -76,7 +76,7 @@
                   IsReadOnly="True"
                   Style="{StaticResource MediumDataGridStyle}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Type de Consultation" Binding="{Binding Nom}"/>
+                <DataGridTextColumn Header="Nom du Type" Binding="{Binding Nom}"/>
                 <DataGridTextColumn Header="Renouvelement du type" Binding="{Binding DureeUnit}"/>
             </DataGrid.Columns>
         </DataGrid>

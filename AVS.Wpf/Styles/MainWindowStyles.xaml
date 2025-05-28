@@ -282,7 +282,7 @@
 
     <!-- Tableau de donnée medium -->
     <Style x:Key="MediumDataGridStyle" TargetType="DataGrid" BasedOn="{StaticResource GlobalDataGridStyle}">
-        <Setter Property="MinHeight" Value="300"/>
+        <Setter Property="MinHeight" Value="160"/>
         <Setter Property="MaxHeight" Value="500"/>
     </Style>
 

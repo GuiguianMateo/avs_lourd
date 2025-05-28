@@ -42,7 +42,7 @@
             <!-- Create button aligned left -->
             <Button x:Name="ButtonCreate"
             Style="{StaticResource CompactCreateButtonStyle}"
-            Content="Créer"
+            Content="Ajouter"
             Click="Create_Medicament_Click"
             HorizontalAlignment="Left"
             Margin="10,0,0,0"

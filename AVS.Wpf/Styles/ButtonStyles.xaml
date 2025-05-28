@@ -15,7 +15,7 @@
     <!-- Bouton Login moderne -->
     <Style x:Key="ModernLoginButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}">
         <Setter Property="Background" Value="{StaticResource PrimaryGradientBrush}"/>
-        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Foreground" Value="{StaticResource BackgroundBrush}"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Height" Value="50"/>
         <Setter Property="FontSize" Value="16"/>
@@ -186,4 +186,9 @@
         <Setter Property="Background" Value="{StaticResource DangerBrush}"/>
     </Style>
 
+    <!-- Bouton compact Cancel -->
+    <Style x:Key="CompactCancelButtonStyle" TargetType="Button" BasedOn="{StaticResource CompactButtonStyle}">
+        <Setter Property="Background" Value="{StaticResource StoneBrush}"/>
+    </Style>
+    
 </ResourceDictionary>

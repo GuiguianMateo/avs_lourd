@@ -71,6 +71,7 @@
                                    Style="{StaticResource FieldLabelStyle}"/>
                         <TextBox x:Name="TextBoxLogin" 
                                  Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"
+                                 Style="{StaticResource ModernTextBoxStyle}"
                                  TabIndex="1"/>
                     </StackPanel>
 
@@ -79,6 +80,7 @@
                         <TextBlock Text="Mot de passe" 
                                    Style="{StaticResource FieldLabelStyle}"/>
                         <PasswordBox x:Name="PasswordBoxLogin" 
+                                     Style="{StaticResource ModernPasswordBoxStyle}"
                                      TabIndex="2"/>
                     </StackPanel>
 

@@ -7,21 +7,33 @@
         xmlns:views="clr-namespace:AVS.Wpf.Windows"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/MainStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
     <Grid x:Name="TypeView">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
+
             <DockPanel Grid.Row="0" LastChildFill="False">
                 <Button Content="Logout"
                         DockPanel.Dock="Right"
-                        Margin="0,5,10,5"
+                        Margin="0,0,5,0"
                         Padding="15,5"
                         HorizontalAlignment="Right"
+                        Style="{StaticResource CompactCancelButtonStyle}"
                         Click="Button_Logout_Click"/>
             </DockPanel>
-            <TabControl Grid.Row="1">
+            <TabControl Grid.Row="1"
+                 Style="{StaticResource TabControlStyle}">
                 <TabItem Header="Medicaments">
                     <views:WindowsMedicament/>
                 </TabItem>

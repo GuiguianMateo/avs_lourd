@@ -57,7 +57,7 @@
                         </Ellipse.Fill>
                     </Ellipse>
 
-                    <TextBlock Text="Bienvenu !" 
+                    <TextBlock Text="Bienvenue !" 
                                Style="{StaticResource TitleStyle}"/>
                     <TextBlock Text="Connectez-vous à votre compte" 
                                Style="{StaticResource SubtitleStyle}"/>

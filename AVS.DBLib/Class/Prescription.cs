@@ -7,7 +7,7 @@ public partial class Prescription
 {
     public ulong Id { get; set; }
 
-    public string Ratio { get; set; } = null!;
+    public int Posologie { get; set; }
 
     public int Quantite { get; set; }
 

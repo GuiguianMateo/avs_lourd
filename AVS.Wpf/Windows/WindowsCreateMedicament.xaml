@@ -96,6 +96,7 @@
                   SelectedValue="{Binding NewMedicament.NiveauAvertissement, Mode=TwoWay}"
                   SelectedValuePath="Content"
                   TabIndex="4">
+                        <ComboBoxItem Content="Niveau 0" Style="{StaticResource ModernComboBoxItemStyle}" />
                         <ComboBoxItem Content="Niveau 1" Style="{StaticResource ModernComboBoxItemStyle}" />
                         <ComboBoxItem Content="Niveau 2" Style="{StaticResource ModernComboBoxItemStyle}" />
                         <ComboBoxItem Content="Niveau 3" Style="{StaticResource ModernComboBoxItemStyle}" />

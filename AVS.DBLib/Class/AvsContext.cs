@@ -54,6 +54,7 @@ public partial class AvsContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseMySQL("server=localhost;user=root;database=avs");
+        //=> optionsBuilder.UseMySQL("server=10.193.6.21;user=root;password=Not24get;database=avs");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -393,9 +394,9 @@ public partial class AvsContext : DbContext
             entity.Property(e => e.Duree).HasColumnName("duree");
             entity.Property(e => e.MedicamentId).HasColumnName("medicament_id");
             entity.Property(e => e.Quantite).HasColumnName("quantite");
-            entity.Property(e => e.Ratio)
-                .HasMaxLength(30)
-                .HasColumnName("ratio");
+            entity.Property(e => e.Posologie)
+                .HasColumnType("decimal(5,1)")
+                .HasColumnName("posologie");
             entity.Property(e => e.UpdatedAt)
                 .HasColumnType("timestamp")
                 .HasColumnName("updated_at");

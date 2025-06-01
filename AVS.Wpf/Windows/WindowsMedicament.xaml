@@ -74,11 +74,11 @@
                   SelectedItem="{Binding SelectedMedicament}"
                   AutoGenerateColumns="False"
                   IsReadOnly="True"
-                  Style="{StaticResource LargeDataGridStyle}">
+                  Style="{StaticResource MediumDataGridStyle}">
 
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Médicament" Binding="{Binding Nom}"/>
-                <DataGridTextColumn Header="Effet Indésirables" Binding="{Binding EffetIndesirable}"/>
+                <DataGridTextColumn Header="Effets Indésirables" Binding="{Binding EffetIndesirable}"/>
                 <DataGridTextColumn Header="Mode d'administration" Binding="{Binding ModeAdministration}"/>
                 <DataGridTextColumn Header="Niveau d'avertissement" Binding="{Binding NiveauAvertissement}"/>
             </DataGrid.Columns>

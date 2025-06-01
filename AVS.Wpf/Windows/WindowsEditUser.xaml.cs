@@ -27,11 +27,8 @@ namespace AVS.Wpf.Windows
 
         private void Edit_User_Click(object sender, RoutedEventArgs e)
         {
-            if (((ViewModelUser)this.DataContext).SelectedUser != null)
-            {
-                ((ViewModelUser)this.DataContext).EditUser();
-                this.Close();
-            }
+            ((ViewModelUser)this.DataContext).EditUser();
+            this.Close();
         }
 
         private void Annuler_Edit_Click(object sender, RoutedEventArgs e)

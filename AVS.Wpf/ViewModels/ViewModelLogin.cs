@@ -30,9 +30,6 @@ namespace AVS.Wpf
 
                 if (user != null)
                 {
-                    //var isAdmin = context.AssignedRoles.Include(ar => ar.Role).Any(ar => ar.EntityId == user.Id && ar.EntityType == "User" && ar.Role.Name == "admin");
-                    //var isPraticien = context.AssignedRoles.Include(ar => ar.Role).Any(ar => ar.EntityId == user.Id && ar.EntityType == "User" && ar.Role.Name == "praticien");
-
                     var isAdmin = context.AssignedRoles.Include(ar => ar.Role).Any(ar => ar.EntityId == user.Id && ar.Role.Name == "admin");
                     var isPraticien = context.AssignedRoles.Include(ar => ar.Role).Any(ar => ar.EntityId == user.Id && ar.Role.Name == "praticien");
 

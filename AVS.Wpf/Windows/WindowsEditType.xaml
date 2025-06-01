@@ -87,8 +87,8 @@
                    TabIndex="4"
                    Margin="0,0,15,0"/>
 
-            <Button x:Name="créer" 
-                   Content="Créer"
+            <Button x:Name="Modifier" 
+                   Content="Modifier"
                    Style="{StaticResource CompactCreateButtonStyle}"
                    Click="Edit_Type_Click"
                    Width="100"

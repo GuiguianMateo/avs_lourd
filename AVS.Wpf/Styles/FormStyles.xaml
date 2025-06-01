@@ -64,7 +64,7 @@
     </Style>
 
     <!-- Label obligatoire avec astérisque -->
-    <Style x:Key="RequiredFieldLabelStyle" TargetType="TextBlock" BasedOn="{StaticResource FieldLabelStyle}">
+    <Style x:Key="RequiredFieldLabelStyle" TargetType="TextBlock" BasedOn="{StaticResource FormFieldStyle}">
         <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
     </Style>
 
@@ -192,6 +192,399 @@
         <Setter Property="Foreground" Value="{StaticResource TextSecondaryBrush}"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="Margin" Value="0,0,0,16"/>
+    </Style>
+
+    <!-- Styles pour RadioButton -->
+    <Style x:Key="ModernRadioButtonStyle" TargetType="RadioButton">
+        <Setter Property="FontFamily" Value="Segoe UI"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="{StaticResource DarkBrush}"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="{StaticResource SurfaceBrush}"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="Padding" Value="8,6"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RadioButton">
+                    <Border x:Name="MainBorder"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="20"
+                        Padding="{TemplateBinding Padding}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Cercle du RadioButton -->
+                            <Border x:Name="RadioCircle"
+                                Grid.Column="0"
+                                Width="18" Height="18"
+                                BorderBrush="{StaticResource SurfaceBrush}"
+                                BorderThickness="2"
+                                CornerRadius="9"
+                                Background="{StaticResource BackgroundBrush}"
+                                Margin="0,0,5,0"
+                                VerticalAlignment="Center">
+                                <Ellipse x:Name="RadioDot"
+                                     Width="8" Height="8"
+                                     Fill="{StaticResource BorderFocusBrush}"
+                                     Visibility="Collapsed"/>
+                            </Border>
+
+                            <!-- Texte -->
+                            <ContentPresenter Grid.Column="1"
+                                          VerticalAlignment="Center"
+                                          HorizontalAlignment="Left"
+                                          Content="{TemplateBinding Content}"/>
+                        </Grid>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <!-- État coché -->
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="RadioDot" Property="Visibility" Value="Visible"/>
+                            <Setter TargetName="RadioCircle" Property="BorderBrush" Value="{StaticResource BorderFocusBrush}"/>
+                            <Setter TargetName="MainBorder" Property="Background" Value="{StaticResource BorderBrush}"/>
+                            <Setter TargetName="MainBorder" Property="BorderBrush" Value="{StaticResource BorderFocusBrush}"/>
+                        </Trigger>
+
+                        <!-- État survol -->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="MainBorder" Property="Background" Value="{StaticResource BackgroundBrush}"/>
+                            <Setter TargetName="RadioCircle" Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+                        </Trigger>
+
+                        <!-- État focus -->
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="MainBorder" Property="BorderBrush" Value="{StaticResource BorderFocusBrush}"/>
+                            <Setter TargetName="MainBorder" Property="Background" Value="{StaticResource BackgroundBrush}"/>
+                        </Trigger>
+
+                        <!-- État désactivé -->
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground" Value="{StaticResource StoneBrush}"/>
+                            <Setter TargetName="RadioCircle" Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+                            <Setter TargetName="RadioDot" Property="Fill" Value="{StaticResource StoneBrush}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Style pour DatePicker -->
+    <Style x:Key="ModernDatePickerStyle" TargetType="DatePicker">
+        <Setter Property="FontFamily" Value="Segoe UI"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="{StaticResource DarkBrush}"/>
+        <Setter Property="Background" Value="{StaticResource BackgroundBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource SurfaceBrush}"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="Padding" Value="12,8"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="MinWidth" Value="150"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="DatePicker">
+                    <Border x:Name="MainBorder"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="8">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Zone de texte -->
+                            <DatePickerTextBox x:Name="PART_TextBox"
+                                           Grid.Column="0"
+                                           Padding="{TemplateBinding Padding}"
+                                           Foreground="{TemplateBinding Foreground}"
+                                           Background="Transparent"
+                                           BorderThickness="0"
+                                           FontFamily="{TemplateBinding FontFamily}"
+                                           FontSize="{TemplateBinding FontSize}"
+                                           HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                           VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+
+                            <!-- Bouton calendrier -->
+                            <Button x:Name="PART_Button"
+                                Grid.Column="1"
+                                Width="30" Height="30"
+                                Margin="5"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                Cursor="Hand">
+                                <Path Data="M19,3H18V1H16V3H8V1H6V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M19,19H5V8H19V19Z"
+                                  Fill="{StaticResource BorderFocusBrush}"
+                                  Width="16" Height="16"
+                                  Stretch="Uniform"/>
+                            </Button>
+
+                            <!-- Popup calendrier -->
+                            <Popup x:Name="PART_Popup"
+                               AllowsTransparency="True"
+                               Placement="Bottom"
+                               PlacementTarget="{Binding ElementName=MainBorder}"
+                               StaysOpen="False"/>
+                        </Grid>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <!-- État focus -->
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="MainBorder" Property="BorderBrush" Value="{StaticResource BorderFocusBrush}"/>
+                            <Setter TargetName="MainBorder" Property="Background" Value="{StaticResource BackgroundBrush}"/>
+                        </Trigger>
+
+                        <!-- État survol -->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="MainBorder" Property="BorderBrush" Value="{StaticResource BorderFocusBrush}"/>
+                            <Setter TargetName="MainBorder" Property="Background" Value="{StaticResource BackgroundBrush}"/>
+                        </Trigger>
+
+                        <!-- État désactivé -->
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground" Value="{StaticResource StoneBrush}"/>
+                            <Setter TargetName="MainBorder" Property="Background" Value="{StaticResource BackgroundBrush}"/>
+                            <Setter TargetName="MainBorder" Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Style pour DatePickerTextBox -->
+    <Style TargetType="DatePickerTextBox">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="DatePickerTextBox">
+                    <ScrollViewer x:Name="PART_ContentHost"
+                              Background="Transparent"
+                              BorderThickness="0"
+                              VerticalAlignment="Center"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style x:Key="ModernComboBoxStyle" TargetType="ComboBox">
+        <Setter Property="Background" Value="{StaticResource BackgroundBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="Padding" Value="10,8"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <!-- Ajout des propriétés importantes pour le dropdown -->
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ComboBox">
+                    <Grid>
+                        <Border x:Name="Border"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="6">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Zone de contenu -->
+                                <ContentPresenter x:Name="ContentSite"
+                                Grid.Column="0"
+                                IsHitTestVisible="False"
+                                Content="{TemplateBinding SelectionBoxItem}"
+                                ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                Margin="{TemplateBinding Padding}"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+
+                                <!-- TextBox pour édition -->
+                                <TextBox x:Name="PART_EditableTextBox"
+                                Grid.Column="0"
+                                Style="{x:Null}"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                IsReadOnly="{Binding IsReadOnly, RelativeSource={RelativeSource TemplatedParent}}"
+                                Margin="{TemplateBinding Padding}"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                Visibility="Hidden"/>
+
+                                <!-- Bouton toggle pour le dropdown - couvre toute la surface -->
+                                <ToggleButton x:Name="ToggleButton"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2"
+                                ClickMode="Press"
+                                Focusable="False"
+                                IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                Background="Transparent"
+                                BorderThickness="0">
+                                    <ToggleButton.Template>
+                                        <ControlTemplate TargetType="ToggleButton">
+                                            <Border Background="Transparent">
+                                                <!-- Flèche dans le coin droit -->
+                                                <Path x:Name="Arrow"
+                                                HorizontalAlignment="Right"
+                                                VerticalAlignment="Center"
+                                                Fill="{StaticResource TextSecondaryBrush}"
+                                                Data="M 0 0 L 4 4 L 8 0 Z"
+                                                Margin="0,0,12,0"/>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="Arrow" Property="Fill" Value="{StaticResource PrimaryBrush}"/>
+                                                </Trigger>
+                                                <Trigger Property="IsPressed" Value="True">
+                                                    <Setter TargetName="Arrow" Property="Fill" Value="{StaticResource PrimaryBrush}"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </ToggleButton.Template>
+                                </ToggleButton>
+                            </Grid>
+                        </Border>
+
+                        <!-- Popup -->
+                        <Popup x:Name="Popup"
+                        Placement="Bottom"
+                        IsOpen="{TemplateBinding IsDropDownOpen}"
+                        AllowsTransparency="True"
+                        Focusable="False"
+                        PopupAnimation="Slide"
+                        StaysOpen="False">
+                            <Grid x:Name="DropDown"
+                            SnapsToDevicePixels="True"
+                            MinWidth="{TemplateBinding ActualWidth}"
+                            MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                <Border x:Name="DropDownBorder"
+                                Background="{StaticResource CardBrush}"
+                                BorderBrush="{StaticResource BorderBrush}"
+                                BorderThickness="1"
+                                CornerRadius="8"
+                                Margin="0,4,0,0">
+                                    <Border.Effect>
+                                        <DropShadowEffect Color="#1E293B" Opacity="0.1" ShadowDepth="4" BlurRadius="12"/>
+                                    </Border.Effect>
+                                    <ScrollViewer x:Name="DropDownScrollViewer"
+                                    HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                                    VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
+                                    CanContentScroll="{TemplateBinding ScrollViewer.CanContentScroll}">
+                                        <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Contained"/>
+                                    </ScrollViewer>
+                                </Border>
+                            </Grid>
+                        </Popup>
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+                        <!-- Hover -->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource BorderHoverBrush}"/>
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource SurfaceBrush}"/>
+                        </Trigger>
+
+                        <!-- Focus -->
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource PrimaryBrush}"/>
+                            <Setter TargetName="Border" Property="BorderThickness" Value="2"/>
+                        </Trigger>
+
+                        <!-- Disabled -->
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource SurfaceBrush}"/>
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+                            <Setter Property="Foreground" Value="{StaticResource TextMutedBrush}"/>
+                            <Setter TargetName="ToggleButton" Property="IsEnabled" Value="False"/>
+                        </Trigger>
+
+                        <!-- Editable -->
+                        <Trigger Property="IsEditable" Value="True">
+                            <Setter TargetName="PART_EditableTextBox" Property="Visibility" Value="Visible"/>
+                            <Setter TargetName="ContentSite" Property="Visibility" Value="Hidden"/>
+                            <Setter TargetName="PART_EditableTextBox" Property="IsReadOnly" Value="False"/>
+                            <!-- En mode éditable, on garde le ToggleButton sur toute la surface mais on ajuste le z-order -->
+                            <Setter TargetName="PART_EditableTextBox" Property="Panel.ZIndex" Value="1"/>
+                            <Setter TargetName="ToggleButton" Property="Panel.ZIndex" Value="0"/>
+                        </Trigger>
+
+                        <!-- HasItems pour s'assurer que le popup s'affiche seulement s'il y a des éléments -->
+                        <Trigger Property="HasItems" Value="False">
+                            <Setter TargetName="DropDownBorder" Property="MinHeight" Value="95"/>
+                        </Trigger>
+
+                        <!-- Grouping -->
+                        <Trigger Property="IsGrouping" Value="True">
+                            <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
+                        </Trigger>
+
+                        <!-- DropDown Open - Animation et couleur -->
+                        <Trigger Property="IsDropDownOpen" Value="True">
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource PrimaryBrush}"/>
+                            <Setter TargetName="Border" Property="BorderThickness" Value="2"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Style pour les ComboBoxItems (optionnel pour améliorer l'apparence) -->
+    <Style x:Key="ModernComboBoxItemStyle" TargetType="ComboBoxItem">
+        <Setter Property="Height" Value="36"/>
+        <Setter Property="Padding" Value="12,8"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ComboBoxItem">
+                    <Border x:Name="Border"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    Padding="{TemplateBinding Padding}">
+                        <ContentPresenter 
+                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsHighlighted" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource SurfaceBrush}"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource PrimaryBrush}"/>
+                            <Setter Property="Foreground" Value="White"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground" Value="{StaticResource TextMutedBrush}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
 </ResourceDictionary>

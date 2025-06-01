@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Windows;
 
 namespace AVS.Wpf.ViewModels
 {
@@ -16,6 +17,13 @@ namespace AVS.Wpf.ViewModels
         private DBLib.Class.Medicament? _originalSelectedMedicament;
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public List<string> NiveauxAvertissement { get; } = new List<string>
+        {
+            "Niveau 1",
+            "Niveau 2",
+            "Niveau 3"
+        };
 
         public ViewModelMedicament()
         {
@@ -34,18 +42,19 @@ namespace AVS.Wpf.ViewModels
 
         public void ResetNewMedicament()
         {
-            NewMedicament = new DBLib.Class.Medicament(); // Crée un nouvel objet Medicament vide
+            NewMedicament = new DBLib.Class.Medicament();
         }
 
         public void SaveOriginalSelectedMedicament()
         {
             if (this.SelectedMedicament != null)
             {
-                // Sauvegarder les données SelectedMedicament
                 _originalSelectedMedicament = new DBLib.Class.Medicament
                 {
                     Nom = this.SelectedMedicament.Nom,
-                    Peremption = this.SelectedMedicament.Peremption
+                    EffetIndesirable = this.SelectedMedicament.EffetIndesirable,
+                    ModeAdministration = this.SelectedMedicament.ModeAdministration,
+                    NiveauAvertissement = this.SelectedMedicament.NiveauAvertissement,
                 };
             }
         }
@@ -56,7 +65,9 @@ namespace AVS.Wpf.ViewModels
             {
 
                 SelectedMedicament.Nom = _originalSelectedMedicament.Nom;
-                SelectedMedicament.Peremption = _originalSelectedMedicament.Peremption;
+                SelectedMedicament.EffetIndesirable = _originalSelectedMedicament.EffetIndesirable;
+                SelectedMedicament.ModeAdministration = _originalSelectedMedicament.ModeAdministration;
+                SelectedMedicament.NiveauAvertissement = _originalSelectedMedicament.NiveauAvertissement;
 
                 OnPropertyChanged(nameof(SelectedMedicament));
 
@@ -65,34 +76,55 @@ namespace AVS.Wpf.ViewModels
 
         internal void CreateMedicament()
         {
-            using (AvsContext context = new())
+            // Validation des champs obligatoires
+            if (string.IsNullOrWhiteSpace(this.NewMedicament?.Nom) ||
+                string.IsNullOrWhiteSpace(this.NewMedicament?.ModeAdministration) ||
+                string.IsNullOrWhiteSpace(this.NewMedicament?.EffetIndesirable) ||
+                string.IsNullOrWhiteSpace(this.NewMedicament?.NiveauAvertissement))
             {
-                if (this.NewMedicament == null)
-                {
-                    this.NewMedicament = new DBLib.Class.Medicament();
-                }
-
-                context.Add(this.NewMedicament); // J'ajoute le Medicament au contexte
-                context.SaveChanges(); // Je sauvegarde les modifications du contexte en base de données
-
-                this.Medicaments.Add(this.NewMedicament); // Ajouter à la collection pour mise à jour de la vue
-                this.SelectedMedicament = this.NewMedicament;
-
-                ResetNewMedicament(); // Réinitialiser après la sauvegarde
+                MessageBox.Show("Veuillez remplir tous les champs obligatoires.", "Validation", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
             }
+            else
+            {
+                using (AvsContext context = new())
+                {
+                    if (this.NewMedicament == null)
+                    {
+                        this.NewMedicament = new DBLib.Class.Medicament();
+                    }
+
+                    context.Add(this.NewMedicament);
+                    context.SaveChanges();
+
+                    this.Medicaments.Add(this.NewMedicament);
+                    this.SelectedMedicament = this.NewMedicament;
+
+                    ResetNewMedicament();
+                }
+            } 
         }
 
         internal void EditMedicament()
         {
-            if (SelectedMedicament != null)
+            if (string.IsNullOrEmpty(this.SelectedMedicament?.Nom) ||
+                string.IsNullOrEmpty(this.SelectedMedicament?.ModeAdministration) ||
+                string.IsNullOrEmpty(this.SelectedMedicament?.EffetIndesirable) ||
+                string.IsNullOrEmpty(this.SelectedMedicament?.NiveauAvertissement))
+            {
+                this.RestoreOriginalSelectedMedicament();
+                MessageBox.Show("Veuillez remplir tous les champs obligatoires.", "Validation", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            else
             {
                 using (AvsContext context = new())
                 {
                     context.Update(SelectedMedicament);
                     context.SaveChanges();
-                }
 
-                ResetNewMedicament();
+                    ResetNewMedicament();
+                }
             }
         }
 

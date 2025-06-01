@@ -4,7 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AVS.Wpf.Windows"
-        mc:Ignorable="d"
+        xmlns:converters="clr-namespace:AVS.Wpf.Converters"
+    mc:Ignorable="d"
         Title="Modification de l'Utilisateur" 
         Height="500" Width="800"
         WindowStartupLocation="CenterScreen">
@@ -14,37 +15,29 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Styles/MainStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            <converters:GenderConverter x:Key="GenderConverter"/>
         </ResourceDictionary>
     </Window.Resources>
 
     <Grid Margin="30,20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <!-- Titre -->
             <RowDefinition Height="Auto"/>
-            <!-- Espaceur -->
             <RowDefinition Height="Auto"/>
-            <!-- Formulaire -->
             <RowDefinition Height="*"/>
-            <!-- Espace flexible -->
             <RowDefinition Height="Auto"/>
-            <!-- Boutons -->
         </Grid.RowDefinitions>
 
-        <!-- En-tête -->
         <TextBlock Grid.Row="0" 
                    Text="Modification d'un Utilisateur"
                    Style="{StaticResource TitleStyle}"
                    HorizontalAlignment="Center"
                    Margin="0,0,0,20"/>
 
-        <!-- Espaceur -->
         <Rectangle Grid.Row="1" Height="10"/>
 
-        <!-- Formulaire principal -->
         <StackPanel Grid.Row="2">
 
-            <!-- Champs Nom et Prénom sur la même ligne -->
             <StackPanel Margin="0,0,0,20">
                 <Grid Margin="50,0,50,0">
                     <Grid.ColumnDefinitions>
@@ -58,7 +51,6 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <!-- Labels -->
                     <TextBlock Grid.Column="0" Grid.Row="0"
                               Text="Nom :"
                               Style="{StaticResource SubtitleStyle}"
@@ -68,7 +60,6 @@
                               Style="{StaticResource SubtitleStyle}"
                               FontSize="14"/>
 
-                    <!-- TextBoxes -->
                     <TextBox x:Name="TextBoxFirstName"
                             Grid.Column="0" Grid.Row="2"
                             Style="{StaticResource ModernTextBoxStyle}"
@@ -82,7 +73,6 @@
                 </Grid>
             </StackPanel>
 
-            <!-- Champs Genre et Date de naissance sur la même ligne -->
             <StackPanel Margin="0,0,0,20">
                 <Grid Margin="50,0,50,0">
                     <Grid.ColumnDefinitions>
@@ -96,7 +86,6 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <!-- Labels -->
                     <TextBlock Grid.Column="0" Grid.Row="0"
                               Text="Genre :"
                               Style="{StaticResource SubtitleStyle}"
@@ -106,7 +95,6 @@
                               Style="{StaticResource SubtitleStyle}"
                               FontSize="14"/>
 
-                    <!-- Contrôles -->
                     <StackPanel Grid.Column="0" Grid.Row="2" 
                                Orientation="Horizontal"
                                HorizontalAlignment="Center">
@@ -116,31 +104,37 @@
                                    Checked="Genre_Changed" 
                                    Tag="Masculin"
                                    TabIndex="3"
-                                   Margin="0,0,15,0"/>
+                                   Margin="0,0,15,0"
+                                   IsChecked="{Binding SelectedUser.Genre, Converter={StaticResource GenderConverter}, ConverterParameter=Masculin}"
+                                   Style="{StaticResource ModernRadioButtonStyle}"/>
                         <RadioButton x:Name="RadioFeminin" 
                                    Content="Féminin" 
                                    GroupName="Genre" 
                                    Checked="Genre_Changed" 
                                    Tag="Feminin"
                                    TabIndex="4"
-                                   Margin="0,0,15,0"/>
+                                   Margin="0,0,15,0"
+                                   IsChecked="{Binding SelectedUser.Genre,  Converter={StaticResource GenderConverter}, ConverterParameter=Feminin}"
+                                   Style="{StaticResource ModernRadioButtonStyle}"/>
                         <RadioButton x:Name="RadioAutre" 
                                    Content="Autre" 
                                    GroupName="Genre" 
                                    Checked="Genre_Changed" 
                                    Tag="Autre"
-                                   TabIndex="5"/>
+                                   TabIndex="5"
+                                   IsChecked="{Binding SelectedUser.Genre, Converter={StaticResource GenderConverter}, ConverterParameter=Autre}"
+                                   Style="{StaticResource ModernRadioButtonStyle}"/>
                     </StackPanel>
 
                     <DatePicker x:Name="DatePickerBirthday"
                                Grid.Column="2" Grid.Row="2"
                                SelectedDate="{Binding SelectedUser.Naissance}"
                                TabIndex="6"
-                               HorizontalAlignment="Center"/>
+                               HorizontalAlignment="Center"
+                               Style="{StaticResource ModernDatePickerStyle}"/>
                 </Grid>
             </StackPanel>
 
-            <!-- Champ Email -->
             <StackPanel>
                 <TextBlock Text="Email :"
                           Style="{StaticResource SubtitleStyle}"
@@ -155,7 +149,6 @@
 
         </StackPanel>
 
-        <!-- Zone des boutons -->
         <StackPanel Grid.Row="4" 
                    Orientation="Horizontal" 
                    HorizontalAlignment="Center"

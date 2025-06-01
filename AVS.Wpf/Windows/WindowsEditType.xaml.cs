@@ -23,11 +23,8 @@ namespace AVS.Wpf.Windows
 
         private void Edit_Type_Click(object sender, RoutedEventArgs e)
         {
-            if (((ViewModelType)this.DataContext).SelectedType != null)
-            {
-                ((ViewModelType)this.DataContext).EditType();
-                this.Close();
-            }
+            ((ViewModelType)this.DataContext).EditType();
+            this.Close();
         }
 
         private void Annuler_Edit_Click(object sender, RoutedEventArgs e)

@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Windows;
 
 namespace AVS.Wpf.ViewModels
 {
@@ -34,14 +35,13 @@ namespace AVS.Wpf.ViewModels
 
         public void ResetNewType()
         {
-            NewType = new DBLib.Class.Type(); // Crée un nouvel objet Type vide
+            NewType = new DBLib.Class.Type();
         }
 
         public void SaveOriginalSelectedType()
         {
             if (this.SelectedType != null)
             {
-                // Sauvegarder les données SelectedType
                 _originalSelectedType = new DBLib.Class.Type
                 {
                     Nom = this.SelectedType.Nom,
@@ -65,34 +65,51 @@ namespace AVS.Wpf.ViewModels
 
         internal void CreateType()
         {
+            if (string.IsNullOrWhiteSpace(this.NewType?.Nom) ||
+                this.NewType?.Duree == null || this.NewType.Duree < 0)
+            {
+                MessageBox.Show("Veuillez remplir tous les champs obligatoires.", "Validation", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             using (AvsContext context = new())
             {
                 if (this.NewType == null)
                 {
                     this.NewType = new DBLib.Class.Type();
                 }
+                else
+                {   
+                    context.Add(this.NewType);
+                    context.SaveChanges();
 
-                context.Add(this.NewType); // J'ajoute le type au contexte
-                context.SaveChanges(); // Je sauvegarde les modifications du contexte en base de données
+                    this.Types.Add(this.NewType);
+                    this.SelectedType = this.NewType;
 
-                this.Types.Add(this.NewType); // Ajouter à la collection pour mise à jour de la vue
-                this.SelectedType = this.NewType;
+                    ResetNewType();
+                }
 
-                ResetNewType(); // Réinitialiser après la sauvegarde
             }
         }
 
         internal void EditType()
         {
-            if (SelectedType != null)
+            if (string.IsNullOrEmpty(this.SelectedType?.Nom) ||
+                this.SelectedType?.Duree == null || this.SelectedType?.Duree < 0)
+            {
+                this.RestoreOriginalSelectedType();
+                MessageBox.Show("Veuillez remplir tous les champs obligatoires.", "Validation", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            else
             {
                 using (AvsContext context = new())
                 {
                     context.Update(SelectedType);
                     context.SaveChanges();
-                }
 
-                ResetNewType();
+                    ResetNewType();
+                }
             }
         }
 

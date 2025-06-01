@@ -23,11 +23,8 @@ namespace AVS.Wpf.Windows
 
         private void Edit_Medicament_Click(object sender, RoutedEventArgs e)
         {
-            if (((ViewModelMedicament)this.DataContext).SelectedMedicament != null)
-            {
-                ((ViewModelMedicament)this.DataContext).EditMedicament();
-                this.Close();
-            }
+            ((ViewModelMedicament)this.DataContext).EditMedicament();
+            this.Close();
         }
 
         private void Annuler_Edit_Click(object sender, RoutedEventArgs e)
